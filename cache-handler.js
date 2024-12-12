@@ -15,6 +15,8 @@ CacheHandler.onCreation(async () => {
         url: process.env.REDIS_URL ?? "redis://localhost:6379",
       });
 
+      console.log("Client created.");
+
       // Redis won't work without error handling.
       // NB do not throw exceptions in the redis error listener,
       // because it will prevent reconnection after a socket exception.
@@ -49,7 +51,7 @@ CacheHandler.onCreation(async () => {
         })
         .catch(() => {
           console.warn(
-            "Failed to quit the Redis client after failing to connect.",
+            "Failed to quit the Redis client after failing to connect."
           );
         });
     }
@@ -69,7 +71,7 @@ CacheHandler.onCreation(async () => {
   // The application will still work, but the cache will be in memory only and not shared.
   const LRUHandler = createLruHandler();
   console.warn(
-    "Falling back to LRU handler because Redis client is not available.",
+    "Falling back to LRU handler because Redis client is not available."
   );
 
   return {
